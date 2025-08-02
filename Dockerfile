@@ -37,6 +37,9 @@ RUN chmod +x bin/* && \
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 # Final stage for app image
 FROM base
+RUN mkdir -p /rails/public/uploads/tmp && \
+    chown -R rails:rails /rails/public/uploads && \
+    chown -R rails:rails db log storage tmp
 # Install runtime packages
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
