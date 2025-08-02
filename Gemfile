@@ -70,7 +70,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'dotenv-rails'
+
 gem 'cloudinary','< 2.0.0'
 gem 'carrierwave' , '~> 1.3' ,  '>= 1.3.1'
 gem 'ffi'
