@@ -37,9 +37,7 @@ RUN chmod +x bin/* && \
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 # Final stage for app image
 FROM base
-RUN mkdir -p /rails/public/uploads/tmp && \
-    chown -R rails:rails /rails/public/uploads && \
-    chown -R rails:rails db log storage tmp
+
 # Install runtime packages
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
@@ -54,6 +52,10 @@ RUN apt-get update -qq && \
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
+
+RUN mkdir -p /rails/public/uploads/tmp && \
+    chown -R rails:rails /rails/public/uploads && \
+    chown -R rails:rails db log storage tmp
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
