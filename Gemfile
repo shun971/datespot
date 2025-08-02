@@ -71,10 +71,10 @@ group :test do
 end
 
 
-gem 'cloudinary','< 2.0.0'
-gem 'carrierwave' , '~> 1.3' ,  '>= 1.3.1'
+gem 'carrierwave'
+gem 'cloudinary'
 gem 'ffi'
-# PostgreSQL → 本番用
+
 group :production do
   gem 'pg'
 end
