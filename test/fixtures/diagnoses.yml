@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  relation_level: MyString
+  mood_preference: MyString
+  priority_point: MyString
+  genre_preference: MyString
+  avoid_point: MyString
+  access_preference: MyString
+  extra_needs: MyString
+
+two:
+  relation_level: MyString
+  mood_preference: MyString
+  priority_point: MyString
+  genre_preference: MyString
+  avoid_point: MyString
+  access_preference: MyString
+  extra_needs: MyString

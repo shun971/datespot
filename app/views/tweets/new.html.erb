@@ -1,0 +1,81 @@
+  <h1>(datespot)</h1>
+<h3>新規datespot/h3>
+<%= form_for @tweet do |f| %>
+      <span id="rate-value"></span>
+      <div id="rateYo"></div>
+      <%= f.hidden_field :sterrating, id: "overall_input" %>
+
+  <div class="field">
+    <%= f.label :mood  %>
+    <%= f.select :mood, 
+    [["落ち着いた", "落ち着いた"], 
+    ["にぎやか", "にぎやか"], 
+    ["カジュアル", "カジュアル"], 
+    ["おしゃれ", "おしゃれ"]], include_blank: "選択して下さい" %>
+    </div>
+  
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="field">
+    <%= f.label :station  %>
+    <%= f.select :station, 
+    [["渋谷", "渋谷"], 
+    ["新宿", "新宿"],
+    ["表参道", "表参道"],
+    ["中目黒", "中目黒"], 
+    ["三軒茶屋", "三軒茶屋"]], include_blank: "選択して下さい" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.text_field :price, :size => 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :genre  %>
+    <%= f.select :genre, 
+    [["イタリアン", "イタリアン"], 
+    ["フレンチ", "フレンチ"], 
+    ["和食", "和食"],
+    ["中華", "中華"],
+    ["カフェ", "カフェ"],
+    ["焼肉", "焼肉"],
+    ["寿司", "寿司"]], include_blank: "選択して下さい" %>
+  </div>
+
+   <div class='form-group'>
+        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class='form-check'>
+                <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+
+  <%= f.submit "投稿する" %>
+
+
+
+    
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    $("#rateYo").rateYo({
+      rating: 3.0,
+      fullStar: false,
+      step: 0.1,
+      starWidth: "30px",
+      onSet: function (rating, rateYoInstance) {
+        $("#overall_input").val(rating);
+        $("#rate-value").text(rating);  // ← 数値を表示する要素に反映！
+      }
+    });
+  });
+    </script>
+    
+ <% end %>

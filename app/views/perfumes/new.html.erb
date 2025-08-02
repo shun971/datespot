@@ -1,0 +1,53 @@
+<%= form_for(@perfume, class: 'form-horizontal', role: 'form') do |f| %>
+  <div class="perfume-container">
+
+    <!-- Q1 -->
+    <div class="col-12">
+      <p>Q1. 相手との関係性は？</p>
+    </div>
+    <div class="col-6">
+      <%= f.radio_button :question1, "初対面", id: "q1_1" %>
+      <label for="q1_1">初対面</label><br>
+      <%= f.radio_button :question1, "友達以上恋人未満", id: "q1_2" %>
+      <label for="q1_2">友達以上恋人未満</label>
+    </div>
+
+    <!-- Q2 -->
+    <div class="col-12">
+      <p>Q2. お店の雰囲気は？</p>
+    </div>
+    <div class="col-6">
+      <%= f.radio_button :question2, "静か", id: "q2_1" %>
+      <label for="q2_1">静か</label><br>
+      <%= f.radio_button :question2, "にぎやか", id: "q2_2" %>
+      <label for="q2_2">にぎやか</label>
+    </div>
+
+    <!-- Q3 -->
+    <div class="col-12">
+      <p>Q3. 優先したいのは？</p>
+    </div>
+    <div class="col-6">
+      <%= f.radio_button :question3, "味重視", id: "q3_1" %>
+      <label for="q3_1">味重視</label><br>
+      <%= f.radio_button :question3, "雰囲気重視", id: "q3_2" %>
+      <label for="q3_2">雰囲気重視</label>
+    </div>
+
+    <!-- Q4 -->
+    <div class="col-12">
+      <p>Q4. 食の好みは？</p>
+    </div>
+    <div class="col-6">
+      <%= f.radio_button :question4, "イタリアン", id: "q4_1" %>
+      <label for="q4_1">イタリアン</label><br>
+      <%= f.radio_button :question4, "和食", id: "q4_2" %>
+      <label for="q4_2">和食</label>
+    </div>
+
+  </div>
+
+  <div class="sindanbotan">
+    <%= f.submit "診断結果を見る" %>
+  </div>
+<% end %>
