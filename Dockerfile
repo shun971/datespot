@@ -36,6 +36,9 @@ RUN chmod +x bin/* && \
 # Precompile assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 # Final stage for app image
+
+# Install runtime packages
+# Final stage for app image
 FROM base
 
 # Install runtime packages
@@ -49,19 +52,25 @@ RUN apt-get update -qq && \
         libpq5 && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives && \
     mkdir -p /var/lib/apt/lists/partial
-# Copy built artifacts: gems, application
+
+# ① railsユーザーを作成（この時点でまだ何もCOPYしていない）
+RUN useradd rails --create-home --shell /bin/bash
+
+# ② COPYはその後
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
+# ③ 必要なディレクトリを作って、権限をまとめて設定
 RUN mkdir -p /rails/public/uploads/tmp && \
-    chown -R rails:rails /rails/public/uploads && \
-    chown -R rails:rails db log storage tmp
-# Run and own only the runtime files as a non-root user for security
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    mkdir -p /rails/db /rails/log /rails/storage /rails/tmp && \
+    chown -R rails:rails /rails
+
+# ④ 実行ユーザーを非rootに切り替え
 USER rails:rails
+
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
